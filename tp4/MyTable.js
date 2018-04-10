@@ -12,12 +12,12 @@ class MyTable extends CGFobject
 		this.cube = new MyUnitCubeQuad(scene);
     this.cube.initBuffers();
 
-		this.materialT = new CGFappearance(this.scene);
-		this.materialT.setAmbient(0.521568627,0.368627451,0.258823529,1);
-		this.materialT.setDiffuse(0.521568627,0.368627451,0.258823529,1);
-		this.materialT.setSpecular(0,0,0,1);
-		this.materialT.setShininess(1);
-		this.materialT.loadTexture("resources/images/table.png");
+		this.tableAppearance = new CGFappearance(this.scene);
+		this.tableAppearance.setAmbient(0.2,0.2,0.2,1);
+		this.tableAppearance.setDiffuse(0.9,0.9,0.9,1);
+		this.tableAppearance.setSpecular(0.1,0.1,0.1,1);
+		this.tableAppearance.setShininess(1);
+		this.tableAppearance.loadTexture("resources/images/table.png");
 
 		this.materialP = new CGFappearance(this.scene);
 		this.materialP.setAmbient(0.23125,0.23125,0.23125,1);
@@ -30,7 +30,7 @@ class MyTable extends CGFobject
 
   display(){
 
-		this.materialT.apply();
+		this.tableAppearance.apply();
 
 
     this.scene.pushMatrix();
