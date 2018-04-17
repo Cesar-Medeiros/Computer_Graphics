@@ -1,0 +1,21 @@
+//set up starting values (cleaning attributes)
+for each Vertex v in Graph
+	distance[v] = infinity
+	previous[v] = undefined
+
+distance[startVertex] = 0
+Q = set of all nodes
+
+//search for the shortest path
+while(Q has elements)
+	u = node ∈ Q with smallest distance
+	remove u from Q
+
+	for each x ∈ Q neighbor of u
+		newDistance = distance(u) + distanceBetween(u,x)
+		if(newDistance < distance(x))
+			distance[x] = newDistance
+			previous[x] = u
+
+return previous[]
+

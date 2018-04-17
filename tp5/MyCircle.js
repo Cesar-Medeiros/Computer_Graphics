@@ -57,8 +57,8 @@ class MyCircle extends CGFobject
 			this.texCoords.push(x/2+0.5,1-(y/2+0.5));
 
 
-			console.log(x/2+0.5);
-			console.log(y/2+0.5);
+			//console.log(x/2+0.5);
+			//console.log(y/2+0.5);
 		}
 		this.texCoords.push(0.5,0.5);
 	};

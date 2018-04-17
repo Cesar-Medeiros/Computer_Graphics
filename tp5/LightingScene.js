@@ -36,6 +36,7 @@ class LightingScene extends CGFscene
 		this.prism = new MyPrism(this, 8, 20);
 		this.cylinder = new MyCylinder(this, 8, 20);
 		this.clock = new MyClock(this,8,20);
+		this.clockHand = new MyClockHand(this,8,20);
 
 		this.boardA = new Plane(this, BOARD_A_DIVISIONS,-0.166, 1.166, 0, 1);
 		this.boardB = new Plane(this, BOARD_B_DIVISIONS);
@@ -107,6 +108,16 @@ class LightingScene extends CGFscene
 		this.columnAppearance.setSpecular(0.8,0.8,0.8,1);
 		this.columnAppearance.setShininess(120);
 		this.columnAppearance.loadTexture("resources/images/column.jpg");
+	
+		this.blackMat = new CGFappearance(this);
+		this.blackMat.setAmbient(0,0,0,1);
+		this.blackMat.setDiffuse(0,0,0,1);
+		this.blackMat.setSpecular(0,0,0,1);
+		this.blackMat.setShininess(0);
+	
+		//final do init
+		this.setUpdatePeriod(100);
+		this.prevTime = 0;
 	};
 
 	initCameras()
@@ -173,6 +184,18 @@ class LightingScene extends CGFscene
 		this.lights[4].enable();
 	};
 
+	update(currTime)
+	{
+		if(this.prevTime == 0)
+		{
+			this.prevTime = currTime;
+			return;
+		}
+		
+		this.clock.update(currTime-this.prevTime);
+		this.prevTime = currTime;
+	}
+
 	updateLights()
 	{
 		for (var i = 0; i < this.lights.length; i++)
@@ -205,12 +228,12 @@ class LightingScene extends CGFscene
 
 
 		// ---- BEGIN Scene drawing section
-		
+			
 		this.pushMatrix();
 			this.materialDefault.apply();
 
 
-			this.translate(7.5,7,0);
+			this.translate(7.25,7.25,0);
 			this.scale(0.60,0.60,1);
 			this.clock.display();
 			this.materialDefault.apply();
