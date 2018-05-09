@@ -55,12 +55,7 @@ class MyCircle extends CGFobject
 			var x = Math.cos(angleVertice);
 			var y = Math.sin(angleVertice);
 			this.texCoords.push(x/2+0.5,1-(y/2+0.5));
-
-
-			console.log(x/2+0.5);
-			console.log(y/2+0.5);
 		}
 		this.texCoords.push(0.5,0.5);
 	};
 };
-
