@@ -10,9 +10,30 @@ class LightingScene extends CGFscene
 
 	initObjs()
 	{
+		this.altimetry= [	[	8.0 , 11.0 , 6.0, 0.0, 0.0, 0.0, 2.0, 6.0, 4.0],
+											[ 11.0 , 14.0 , 9.0, 0.0, 0.0, 0.0, 3.0, 7.0, 5.0],
+											[ 9.0 , 12.0 , 7.0, 0.0, 0.0, 0.0, 4.0, 8.0, 6.0],
+											[	7.0 , 10.0 , 5.0, 0.0, 4.0, 0.0, 7.0, 11.0, 9.0],
+											[ 8.0 , 11.0 , 6.0, 0.0, 4.0, 0.0, 6.0, 10.0, 8.0],
+											[ 7.0 , 10.0 , 5.0, 0.0, 0.0, 0.0, 6.0, 10.0, 8.0],
+											[ 8.0 , 11.0 , 6.0, 0.0, 0.0, 0.0, 8.0, 12.0, 10.0],
+											[ 7.0 , 10.0 , 5.0, 0.0, 0.0, 0.0, 7.0, 11.0, 9.0],
+											[ 6.0 , 9.0 , 4.0, 0.0, 0.0, 0.0, 6.0, 10.0, 8.0]
+										];
+
 		this.vehicle = new MyVehicle(this);
-		this.terrain = new MyTerrain(this);
+		this.terrain = new MyTerrain(this, 8, this.altimetry);
 	};
+
+	initInterface(){
+		this.interfaceObjs = {
+			lights: [],
+			axisEnable: true,
+			vehicleAppearances: [],
+			vehicleAppearanceList: {'Textura 1' :  0, 'Textura 2': 1},
+			currVehicleAppearance: null,
+		};
+	}
 
 
 	update(currTime)
@@ -25,51 +46,37 @@ class LightingScene extends CGFscene
 	drawObjs()
 	{
 		this.pushMatrix();
-		this.translate(this.vehicle.position[0], this.vehicle.position[1], this.vehicle.position[2]);
-		this.rotate(-this.vehicle.vehicleAngle, 0, 1 ,0);
-		this.translate(0, 1, 0);
+		this.translate(0, 0.5, 15);
 		this.vehicle.display();
 		this.popMatrix();
-		this.terrain.display();
-	};
 
-	doSomething()
-	{
-		console.log("Doing something...");
+		this.terrain.display();
 	};
 
 	checkKeys()
 	{
-		var keysPressed=false;
 		var speedKeysPressed = false;
 
 		if (this.gui.isKeyPressed("KeyW"))
 		{
-			keysPressed=true;
 			speedKeysPressed = true;
-			this.vehicle.engineForce += 5;
+			this.vehicle.acelerate_front();
 		}
 
 		if (this.gui.isKeyPressed("KeyS"))
 		{
-			keysPressed=true;
 			speedKeysPressed = true;
-			this.vehicle.engineForce -= 5;
+			this.vehicle.acelerate_back();
 		}
 
 		if (this.gui.isKeyPressed("KeyA"))
 		{
-			keysPressed=true;
-			this.vehicle.angle += 0.1;
+			this.vehicle.turnLeft();
 		}
 
 		if (this.gui.isKeyPressed("KeyD"))
 		{
-			keysPressed=true;
-			this.vehicle.angle -= 0.1;
-		}
-
-		if (keysPressed){
+			this.vehicle.turnRight();
 		}
 
 		if(!speedKeysPressed){
@@ -82,6 +89,7 @@ class LightingScene extends CGFscene
 		super.init(application);
 		this.enableTextures(true);
 		this.initCameras();
+		this.initInterface();
 		this.initLights();
 
 		this.gl.clearColor(135/255, 206/255, 235/255, 1.0);
@@ -93,16 +101,12 @@ class LightingScene extends CGFscene
 		this.axis = new CGFaxis(this);
 
 		this.initObjs();
-
-		this.light0 = true;
-		this.speed=3;
-
 		this.setUpdatePeriod(60);
 	};
 
 	initCameras()
 	{
-		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
+		this.camera = new CGFcamera(0.6, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
 	};
 
 
@@ -111,13 +115,37 @@ class LightingScene extends CGFscene
 		//this.setGlobalAmbientLight(1, 1, 1, 1.0);
 
 		// Positions for four lights
-		this.lights[0].setPosition(0, 50, -10, 1);
-		this.lights[0].setVisible(true);
+		this.lights[0].setPosition(50, 50, 50, 1);
+		this.lights[0].setVisible(false);
+
+		this.lights[1].setPosition(-50, 50, 50, 1);
+		this.lights[1].setVisible(false);
+
+		this.lights[2].setPosition(50, 50, -50, 1);
+		this.lights[2].setVisible(false);
+
+		this.lights[3].setPosition(-50, 50, -50, 1);
+		this.lights[3].setVisible(false);
 
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].setSpecular(1.0, 1.0, 0.0, 1.0);
-		this.lights[0].disable();
+		this.interfaceObjs.lights[0] = true;
+
+		this.lights[1].setAmbient(0, 0, 0, 1);
+		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[1].setSpecular(1.0, 1.0, 0.0, 1.0);
+		this.interfaceObjs.lights[1] = true;
+
+		this.lights[2].setAmbient(0, 0, 0, 1);
+		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[2].setSpecular(1.0, 1.0, 0.0, 1.0);
+		this.interfaceObjs.lights[2] = true;
+
+		this.lights[3].setAmbient(0, 0, 0, 1);
+		this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[3].setSpecular(1.0, 1.0, 0.0, 1.0);
+		this.interfaceObjs.lights[3] = true;
 	};
 
 
@@ -136,20 +164,15 @@ class LightingScene extends CGFscene
 		// Apply transformations corresponding to the camera position relative to the origin
 		this.applyViewMatrix();
 
-		//Change light readyState
-
-		if(this.light0 === true){
-			this.lights[0].enable();
-		}
-		else{
-				this.lights[0].disable();
-		}
 
 		// Update all lights used
 		this.updateLights();
 
 		// Draw axis
-		this.axis.display();
+		if(this.interfaceObjs.axisEnable){
+			this.axis.display();
+		}
+
 		// ---- END Background, camera and axis setup
 
 		//drawing section
@@ -160,6 +183,14 @@ class LightingScene extends CGFscene
 	updateLights()
 	{
 		for (var i = 0; i < this.lights.length; i++){
+
+			if(this.interfaceObjs.lights[i] === true){
+				this.lights[i].enable();
+			}
+			else{
+				this.lights[i].disable();
+			}
+
 			this.lights[i].update();
 		}
 

@@ -2,7 +2,8 @@
 /** Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
 class Plane extends CGFobject{
 
-	constructor(scene, nrDivs, minS = 0, maxS = 1, minT = 0, maxT = 1)
+
+	constructor(scene, nrDivs, altimetry, minS = 0, maxS = 1, minT = 0, maxT = 1)
 	{
 		super(scene);
 
@@ -15,6 +16,7 @@ class Plane extends CGFobject{
 		this.dt = (maxT - minT) * this.patchLength;
 		this.minS = minS;
 		this.minT = minT;
+		this.altimetry = altimetry;
 
 		this.initBuffers();
 	};
@@ -52,7 +54,8 @@ class Plane extends CGFobject{
 			var xCoord = -0.5;
 			for (var i = 0; i <= this.nrDivs; i++)
 			{
-				this.vertices.push(xCoord, yCoord, 0);
+
+				this.vertices.push(xCoord, yCoord,this.altimetry[j][i]);
 
 				// As this plane is being drawn on the xy plane, the normal to the plane will be along the positive z axis.
 				// So all the vertices will have the same normal, (0, 0, 1).

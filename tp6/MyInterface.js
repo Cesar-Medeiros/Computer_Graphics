@@ -15,40 +15,23 @@ class MyInterface extends CGFinterface {
 	 * @param {CGFapplication} application
 	 */
 	init(application) {
-		// call CGFinterface init
 		super.init(application);
-
-		// init GUI. For more information on the methods, check:
-		//  http://workshop.chromeexperiments.com/examples/gui
 
 		this.gui = new dat.GUI();
 
-		// add a button:
-		// the first parameter is the object that is being controlled (in this case the scene)
-		// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
-		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); };
-
-		this.gui.add(this.scene, 'doSomething');
-
-		// add a group of controls (and open/expand by defult)
-
 		var groupLights=this.gui.addFolder("Luzes");
 		groupLights.open();
+    Object.keys(this.scene.interfaceObjs.lights).forEach((key) => {
+    	groupLights.add(this.scene.interfaceObjs.lights, key).name("Luz " + key);
+    });
 
-		// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
-		// e.g. this.option1=true; this.option2=false;
 
-		groupLights.add(this.scene, 'light0').name("Luz 0");
+		this.gui.add(this.scene.interfaceObjs, 'axisEnable').name("Eixo");
 
-		// add a slider
-		// must be a numeric variable of the scene, initialized in scene.init e.g.
-		// this.speed=3;
-		// min and max values can be specified as parameters
-
-		this.gui.add(this.scene, 'speed', -5, 5);
+    this.scene.interfaceObjs.currVehicleAppearance = Object.keys(this.scene.interfaceObjs.vehicleAppearanceList)[0];
+    this.gui.add(this.scene.interfaceObjs, 'currVehicleAppearance', Object.keys(this.scene.interfaceObjs.vehicleAppearanceList)).name("Textura carro");
 
     this.initKeys();
-
 		return true;
 	};
 

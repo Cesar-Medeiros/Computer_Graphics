@@ -33,8 +33,8 @@ class MyCircle extends CGFobject
 	{
 		for(var i = 0; i < this.slices; i++){
 			var angleVertice = i*this.angle;
-			var x = Math.cos(angleVertice);
-			var y = Math.sin(angleVertice);
+			var x = Math.cos(angleVertice)/2;
+			var y = Math.sin(angleVertice)/2;
 			this.vertices.push(x,y,0);
 			this.normals.push(0,0,1);
 		}

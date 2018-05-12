@@ -33,12 +33,15 @@ class Tire extends CGFobject
 	display()
 	{
 
-    this.tireAppearance.apply();
 		this.scene.pushMatrix();
-		this.cylinder.display();
-		this.scene.translate(0,0,1);
-    this.wheelAppearance.apply();
+		this.wheelAppearance.apply();
+		this.scene.translate(0,0,0.5);
 		this.circle.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+		this.tireAppearance.apply();
+		this.cylinder.display();
 		this.scene.popMatrix();
 
 	};

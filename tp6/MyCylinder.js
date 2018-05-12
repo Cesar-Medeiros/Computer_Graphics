@@ -17,18 +17,18 @@ class MyCylinder extends CGFobject
     this.vertices = [];
     this.normals = [];
 		this.texCoords = [];
-		
+
 		this.minS = minS;
 		this.maxS = maxS;
 		this.minT = minT;
 		this.maxT = maxT;
-	 
+
 		this.ds = (this.maxS - this.minS) / this.slices;
 		this.dt = (this.maxT - this.minT) / this.stacks;
 		this.h = 1/stacks;
 
 		this.angle = 2*Math.PI/slices;
-		
+
     this.initBuffers();
 	};
 
@@ -47,11 +47,11 @@ class MyCylinder extends CGFobject
 		for(var i = 0; i < this.slices; i++){
 			var angleVertice = i*this.angle;
 
-			var x = Math.cos(angleVertice);
-			var y = Math.sin(angleVertice);
+			var x = Math.cos(angleVertice)/2;
+			var y = Math.sin(angleVertice)/2;
 
-			for(var j = 0; j < this.stacks + 1; j++){
-				this.vertices.push(x, y, this.h*j);
+			for(var j = 0; j <= this.stacks; j++){
+				this.vertices.push(x, y, this.h*j-this.stacks/2);
 				this.texCoords.push(this.ds*i, this.dt*j);
 				this.normals.push(x, y, 0);
 			}
