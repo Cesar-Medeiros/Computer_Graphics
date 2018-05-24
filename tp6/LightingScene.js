@@ -23,14 +23,15 @@ class LightingScene extends CGFscene
 
 		this.vehicle = new MyVehicle(this);
 		this.terrain = new MyTerrain(this, 8, this.altimetry);
+
 	};
 
 	initInterface(){
 		this.interfaceObjs = {
 			lights: [],
 			axisEnable: true,
-			vehicleAppearances: [],
-			vehicleAppearanceList: {'Textura 1' :  0, 'Textura 2': 1},
+			vehicleAppearances: [this.color_yellow],
+			vehicleAppearanceList: {'Yellow' :  0, 'Textura 2': 1},
 			currVehicleAppearance: null,
 		};
 	}
@@ -46,11 +47,12 @@ class LightingScene extends CGFscene
 	drawObjs()
 	{
 		this.pushMatrix();
-		this.translate(0, 0.5, 15);
+		//this.translate(0, 0.5, 15);
+		this.materialDefault.apply();
 		this.vehicle.display();
 		this.popMatrix();
 
-		this.terrain.display();
+		//this.terrain.display();
 	};
 
 	checkKeys()
@@ -91,6 +93,20 @@ class LightingScene extends CGFscene
 		this.initCameras();
 		this.initInterface();
 		this.initLights();
+
+		this.materialDefault = new CGFappearance(this);
+
+		this.blackMat = new CGFappearance(this);
+		this.blackMat.setAmbient(0,0,0,1);
+		this.blackMat.setDiffuse(0,0,0,1);
+		this.blackMat.setSpecular(0,0,0,1);
+		this.blackMat.setShininess(1);
+
+		this.color_yellow = new CGFappearance(this);
+		this.color_yellow.setAmbient(0.9,1,0.1,1);
+		this.color_yellow.setDiffuse(0.9,1,0.1,1);
+		this.color_yellow.setSpecular(0.9,1,0.1,1);
+		this.color_yellow.setShininess(1);
 
 		this.gl.clearColor(135/255, 206/255, 235/255, 1.0);
 		this.gl.clearDepth(100.0);
@@ -174,6 +190,8 @@ class LightingScene extends CGFscene
 		}
 
 		// ---- END Background, camera and axis setup
+
+	
 
 		//drawing section
 		this.drawObjs();

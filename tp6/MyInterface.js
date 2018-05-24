@@ -31,6 +31,8 @@ class MyInterface extends CGFinterface {
     this.scene.interfaceObjs.currVehicleAppearance = Object.keys(this.scene.interfaceObjs.vehicleAppearanceList)[0];
     this.gui.add(this.scene.interfaceObjs, 'currVehicleAppearance', Object.keys(this.scene.interfaceObjs.vehicleAppearanceList)).name("Textura carro");
 
+	
+
     this.initKeys();
 		return true;
 	};
