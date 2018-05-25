@@ -21,6 +21,15 @@ serialInclude([
 	'MyTerrain.js',
 	'MyCrane.js',
 	'MyPad.js',
+	'Car.js',
+	'CarBack.js',
+	'CarFront.js',
+	'CarSideLeft.js',
+	'CarSideRight.js',
+	'MyTrap.js',
+	'CarTyreWrap.js',
+	'CarBot.js',
+	'MyHalfSphere.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);

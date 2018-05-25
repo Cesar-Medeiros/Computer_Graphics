@@ -31,8 +31,8 @@ class LightingScene extends CGFscene
 		this.interfaceObjs = {
 			lights: [],
 			axisEnable: true,
-			vehicleAppearances: [],
-			vehicleAppearanceList: {'Textura 1' :  0, 'Textura 2': 1},
+			vehicleAppearances: [this.color_yellow],
+			vehicleAppearanceList: {'Yellow' :  0, 'Textura 2': 1},
 			currVehicleAppearance: null,
 		};
 	}
@@ -118,6 +118,20 @@ class LightingScene extends CGFscene
 		this.initInterface();
 		this.initLights();
 
+		this.materialDefault = new CGFappearance(this);
+
+		this.blackMat = new CGFappearance(this);
+		this.blackMat.setAmbient(0,0,0,1);
+		this.blackMat.setDiffuse(0,0,0,1);
+		this.blackMat.setSpecular(0,0,0,1);
+		this.blackMat.setShininess(1);
+
+		this.color_yellow = new CGFappearance(this);
+		this.color_yellow.setAmbient(0.9,1,0.1,1);
+		this.color_yellow.setDiffuse(0.9,1,0.1,1);
+		this.color_yellow.setSpecular(0.9,1,0.1,1);
+		this.color_yellow.setShininess(1);
+
 		this.gl.clearColor(135/255, 206/255, 235/255, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
@@ -200,6 +214,8 @@ class LightingScene extends CGFscene
 		}
 
 		// ---- END Background, camera and axis setup
+
+
 
 		//drawing section
 		this.drawObjs();
