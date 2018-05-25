@@ -54,8 +54,12 @@ class Plane extends CGFobject{
 			var xCoord = -0.5;
 			for (var i = 0; i <= this.nrDivs; i++)
 			{
-
-				this.vertices.push(xCoord, yCoord,this.altimetry[j][i]);
+				if(this.altimetry == undefined){
+					this.vertices.push(xCoord, yCoord, 0);
+				}
+				else {
+					this.vertices.push(xCoord, yCoord, this.altimetry[j][i]);
+				}
 
 				// As this plane is being drawn on the xy plane, the normal to the plane will be along the positive z axis.
 				// So all the vertices will have the same normal, (0, 0, 1).

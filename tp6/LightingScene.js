@@ -10,19 +10,21 @@ class LightingScene extends CGFscene
 
 	initObjs()
 	{
-		this.altimetry= [	[	8.0 , 11.0 , 6.0, 0.0, 0.0, 0.0, 2.0, 6.0, 4.0],
-											[ 11.0 , 14.0 , 9.0, 0.0, 0.0, 0.0, 3.0, 7.0, 5.0],
-											[ 9.0 , 12.0 , 7.0, 0.0, 0.0, 0.0, 4.0, 8.0, 6.0],
-											[	7.0 , 10.0 , 5.0, 0.0, 4.0, 0.0, 7.0, 11.0, 9.0],
-											[ 8.0 , 11.0 , 6.0, 0.0, 4.0, 0.0, 6.0, 10.0, 8.0],
-											[ 7.0 , 10.0 , 5.0, 0.0, 0.0, 0.0, 6.0, 10.0, 8.0],
-											[ 8.0 , 11.0 , 6.0, 0.0, 0.0, 0.0, 8.0, 12.0, 10.0],
-											[ 7.0 , 10.0 , 5.0, 0.0, 0.0, 0.0, 7.0, 11.0, 9.0],
-											[ 6.0 , 9.0 , 4.0, 0.0, 0.0, 0.0, 6.0, 10.0, 8.0]
+		this.altimetry= [	[	8.0 , 11.0, 6.0, 0.0, 0.0, 0.0, 2.0, 6.0, 4.0],
+											[ 11.0 , 14.0, 9.0, 0.0, 0.0, 0.0, 3.0, 7.0, 5.0],
+											[ 9.0 , 12.0, 7.0, 0.0, 0.0, 0.0, 4.0, 8.0, 6.0],
+											[	7.0 , 10.0, 5.0, 0.0, 0.0, 0.0, 7.0, 11.0, 9.0],
+											[ 8.0 , 11.0, 6.0, 0.0, 0.0, 0.0, 6.0, 10.0, 8.0],
+											[ 7.0 , 10.0, 5.0, 0.0, 0.0, 0.0, 6.0, 10.0, 8.0],
+											[ 8.0 , 11.0, 6.0, 0.0, 0.0, 0.0, 8.0, 12.0, 10.0],
+											[ 7.0 , 10.0, 5.0, 0.0, 0.0, 0.0, 7.0, 11.0, 9.0],
+											[ 6.0 , 9.0, 4.0, 0.0, 0.0, 0.0, 6.0, 10.0, 8.0]
 										];
-
+		this.retrievingPad = new MyPad(this, 8, 5, 2.5);
+		this.landingPad = new MyPad(this, 8, 5*2, 2.5*2);
 		this.vehicle = new MyVehicle(this);
 		this.terrain = new MyTerrain(this, 8, this.altimetry);
+		this.crane = new MyCrane(this);
 	};
 
 	initInterface(){
@@ -39,19 +41,43 @@ class LightingScene extends CGFscene
 	update(currTime)
 	{
 		this.vehicle.update(currTime);
+		this.crane.update(currTime);
 		this.checkKeys();
 	};
 
 
 	drawObjs()
 	{
+
 		this.pushMatrix();
-		this.translate(0, 0.5, 15);
-		this.vehicle.display();
+		this.translate(2, 0.05, -5);
+		this.retrievingPad.display();
 		this.popMatrix();
 
+		this.pushMatrix();
+		this.translate(2, 0.05, 5);
+		this.landingPad.display();
+		this.popMatrix();
+
+
+		if(!this.vehicle.onCrane){
+			this.pushMatrix();
+			this.translate(0,0.5,0);
+			this.vehicle.display();
+			this.popMatrix();
+		}''
+
 		this.terrain.display();
+
+		this.crane.display();
 	};
+
+
+	isCarOnPad(){
+		return (this.vehicle.position[0] < 2.5 + 2 && this.vehicle.position[0] > -2.5 + 2
+				&& this.vehicle.position[2] < -3.75  && this.vehicle.position[2] > -3.75 - 2.5
+				&& this.vehicle.velocity[0] < 0.5 &&	this.vehicle.velocity[2] < 0.5);
+	}
 
 	checkKeys()
 	{
@@ -106,7 +132,7 @@ class LightingScene extends CGFscene
 
 	initCameras()
 	{
-		this.camera = new CGFcamera(0.6, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
+		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
 	};
 
 
@@ -129,22 +155,22 @@ class LightingScene extends CGFscene
 
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[0].setSpecular(1.0, 1.0, 0.0, 1.0);
+		this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
 		this.interfaceObjs.lights[0] = true;
 
 		this.lights[1].setAmbient(0, 0, 0, 1);
 		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[1].setSpecular(1.0, 1.0, 0.0, 1.0);
+		this.lights[1].setSpecular(1.0, 1.0, 1.0, 1.0);
 		this.interfaceObjs.lights[1] = true;
 
 		this.lights[2].setAmbient(0, 0, 0, 1);
 		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[2].setSpecular(1.0, 1.0, 0.0, 1.0);
+		this.lights[2].setSpecular(1.0, 1.0, 1.0, 1.0);
 		this.interfaceObjs.lights[2] = true;
 
 		this.lights[3].setAmbient(0, 0, 0, 1);
 		this.lights[3].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[3].setSpecular(1.0, 1.0, 0.0, 1.0);
+		this.lights[3].setSpecular(1.0, 1.0, 1.0, 1.0);
 		this.interfaceObjs.lights[3] = true;
 	};
 
