@@ -27,12 +27,28 @@ class LightingScene extends CGFscene
 		this.crane = new MyCrane(this);
 	};
 
+	initAppearances(){
+		this.materialDefault = new CGFappearance(this);
+
+		this.blackMat = new CGFappearance(this);
+		this.blackMat.setAmbient(0,0,0,1);
+		this.blackMat.setDiffuse(0,0,0,1);
+		this.blackMat.setSpecular(0,0,0,1);
+		this.blackMat.setShininess(1);
+
+		this.color_yellow = new CGFappearance(this);
+		this.color_yellow.setAmbient(0.9,1,0.1,1);
+		this.color_yellow.setDiffuse(0.9,1,0.1,1);
+		this.color_yellow.setSpecular(0.9,1,0.1,1);
+		this.color_yellow.setShininess(1);
+	}
+
 	initInterface(){
 		this.interfaceObjs = {
 			lights: [],
 			axisEnable: true,
-			vehicleAppearances: [this.color_yellow],
-			vehicleAppearanceList: {'Yellow' :  0, 'Textura 2': 1},
+			vehicleAppearances: [this.color_yellow, this.materialDefault],
+			vehicleAppearanceList: {'Yellow' :  0, 'Grey': 1},
 			currVehicleAppearance: null,
 		};
 	}
@@ -40,32 +56,35 @@ class LightingScene extends CGFscene
 
 	update(currTime)
 	{
-		this.vehicle.update(currTime);
-		this.crane.update(currTime);
+		this.vehicleAppearance = this.interfaceObjs.vehicleAppearances[this.interfaceObjs.vehicleAppearanceList[this.interfaceObjs.currVehicleAppearance]];
+
 		this.checkKeys();
+		if(!this.vehicle.onCrane){
+			this.vehicle.update(currTime);
+		}
+		this.crane.update(currTime);
 	};
 
 
 	drawObjs()
 	{
 
-		this.pushMatrix();
-		this.translate(2, 0.05, -5);
-		this.retrievingPad.display();
-		this.popMatrix();
-
-		this.pushMatrix();
-		this.translate(2, 0.05, 5);
-		this.landingPad.display();
-		this.popMatrix();
-
-
 		if(!this.vehicle.onCrane){
 			this.pushMatrix();
 			this.translate(0,0.5,0);
 			this.vehicle.display();
 			this.popMatrix();
-		}''
+		}
+
+		this.pushMatrix();
+		this.translate(0, 0.05, -5);
+		this.retrievingPad.display();
+		this.popMatrix();
+
+		this.pushMatrix();
+		this.translate(0, 0.05, 7);
+		this.landingPad.display();
+		this.popMatrix();
 
 		this.terrain.display();
 
@@ -74,7 +93,7 @@ class LightingScene extends CGFscene
 
 
 	isCarOnPad(){
-		return (this.vehicle.position[0] < 2.5 + 2 && this.vehicle.position[0] > -2.5 + 2
+		return (this.vehicle.position[0] < 2.5 && this.vehicle.position[0] > -2.5
 				&& this.vehicle.position[2] < -3.75  && this.vehicle.position[2] > -3.75 - 2.5
 				&& this.vehicle.velocity[0] < 0.5 &&	this.vehicle.velocity[2] < 0.5);
 	}
@@ -115,22 +134,9 @@ class LightingScene extends CGFscene
 		super.init(application);
 		this.enableTextures(true);
 		this.initCameras();
+		this.initAppearances();
 		this.initInterface();
 		this.initLights();
-
-		this.materialDefault = new CGFappearance(this);
-
-		this.blackMat = new CGFappearance(this);
-		this.blackMat.setAmbient(0,0,0,1);
-		this.blackMat.setDiffuse(0,0,0,1);
-		this.blackMat.setSpecular(0,0,0,1);
-		this.blackMat.setShininess(1);
-
-		this.color_yellow = new CGFappearance(this);
-		this.color_yellow.setAmbient(0.9,1,0.1,1);
-		this.color_yellow.setDiffuse(0.9,1,0.1,1);
-		this.color_yellow.setSpecular(0.9,1,0.1,1);
-		this.color_yellow.setShininess(1);
 
 		this.gl.clearColor(135/255, 206/255, 235/255, 1.0);
 		this.gl.clearDepth(100.0);
@@ -152,7 +158,7 @@ class LightingScene extends CGFscene
 
 	initLights()
 	{
-		//this.setGlobalAmbientLight(1, 1, 1, 1.0);
+		this.setGlobalAmbientLight(0.3, 0.3, 0.3, 1.0);
 
 		// Positions for four lights
 		this.lights[0].setPosition(50, 50, 50, 1);

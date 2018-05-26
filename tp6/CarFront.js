@@ -24,11 +24,11 @@ class CarFront extends CGFobject
 		this.p3 = new MyTrap(scene, 0,0,-0.5,
 									-3,3,1,
 									-3,3,0.5, this.N);
-	
+
 		this.p4 = new MyTrap(scene,0,0,7,
 									4.5,0,0,
 									4.5,0,7,this.N);
-						
+
 		this.p5 = new MyTrap(scene,3,0,0,
 									0,4.5,0,
 									3,3,0,this.N);
@@ -61,40 +61,11 @@ class CarFront extends CGFobject
 		this.frontWindow3 = new MyTrap(scene,-0.5,0,-2.25,
 												-3,2.5,0,
 												-3,2.5,-1.5,this.N);
-	
+
 	};
 
 	display()
 	{
-
-		
-
-		
-		this.scene.blackMat.apply();
-
-		this.scene.pushMatrix();
-			this.scene.translate(8,3.5,3.5);
-			this.frontWindow1.display();
-		this.scene.popMatrix();
-
-		this.scene.pushMatrix();
-			this.scene.translate(8.5,3.5,1.25);
-			this.frontWindow2.display();
-		this.scene.popMatrix();
-
-		this.scene.pushMatrix();
-			this.scene.translate(8.5,3.5,1.25-2.5);
-			this.frontWindow3.display();
-		this.scene.popMatrix();
-
-
-		// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-		this.scene.color_yellow.apply();
-		// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-
-
-		
-		
 		//braço esquerda do vidro
 		this.scene.pushMatrix();
 			this.scene.translate(8,3.5,4);
@@ -155,7 +126,23 @@ class CarFront extends CGFobject
 			this.p9.display();
 		this.scene.popMatrix();
 
-	
+
+		this.scene.blackMat.apply();
+
+		this.scene.pushMatrix();
+			this.scene.translate(8,3.5,3.5);
+			this.frontWindow1.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+			this.scene.translate(8.5,3.5,1.25);
+			this.frontWindow2.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+			this.scene.translate(8.5,3.5,1.25-2.5);
+			this.frontWindow3.display();
+		this.scene.popMatrix();
 	};
 
 };

@@ -11,7 +11,7 @@ class CarBot extends CGFobject
 		super(scene);
 
 		this.N = 5;
-		
+
 		this.mainFrame = new MyTrap(scene,0,0,-4,
 											25,0,0,
 											25,0,-4,this.N);
@@ -23,7 +23,7 @@ class CarBot extends CGFobject
 		this.frontFrame = new MyTrap(scene,0,0,-2,
 											3.5,0,0,
 											3.5,0,-2,this.N);
-		
+
 		this.backFrame = new MyTrap(scene,0,0,-2,
 											2.5,0,0,
 											2.5,0,-2,this.N);
@@ -35,16 +35,13 @@ class CarBot extends CGFobject
 		this.rightTriangle = new MyTrap(scene,
 										0,0,0,
 										10,0,0,
-										3,0,-0.75,this.N);								
+										3,0,-0.75,this.N);
 
-											
+
 	};
 
 	display()
 	{
-		//PRINT IN BLACK START =============================
-		this.scene.blackMat.apply();
-
 			this.scene.pushMatrix();
 				this.scene.translate(-9.5,-1,2);
 				this.mainFrame.display();
@@ -89,12 +86,6 @@ class CarBot extends CGFobject
 				this.scene.translate(-3,-1,-4);
 				this.rightTriangle.display();
 			this.scene.popMatrix();
-
-		// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-		this.scene.color_yellow.apply();
-		// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-		//PRINT IN BLACK END ===============================
-
 	};
 
 };

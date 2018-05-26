@@ -23,7 +23,7 @@ class CarBadge extends CGFobject
 											0.4,0.5,
 									0.1,0.5,0.1,0.5);
 
-		
+
 		this.badge2 = new MyTextQuad(scene,1,0,0,1,1,1,
 									0,1,0,1);
 

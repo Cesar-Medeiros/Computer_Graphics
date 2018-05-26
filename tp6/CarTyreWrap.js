@@ -90,18 +90,14 @@ class CarTyreWrap extends CGFobject
 									0,0.2,0,
 									1,0.2,0,this.N);
 
-		
-		
+
+
 	};
 
 	display()
 	{
-		// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-
-		// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-
 		this.scene.translate(this.spacing,0,0);
-		
+
 		this.scene.pushMatrix();
 			this.scene.translate(0,0,0);
 			this.p1.display();
@@ -116,7 +112,7 @@ class CarTyreWrap extends CGFobject
 			this.scene.translate(0,0.2,0);
 			this.p3.display();
 		this.scene.popMatrix();
-		
+
 		this.scene.pushMatrix();
 			this.scene.translate(0,0.3,0);
 			this.p4.display();
@@ -131,7 +127,7 @@ class CarTyreWrap extends CGFobject
 			this.scene.translate(0,0.5,0);
 			this.p6.display();
 		this.scene.popMatrix();
-	
+
 		this.scene.pushMatrix();
 			this.scene.translate(0,0.6,0);
 			this.p7.display();
@@ -181,7 +177,7 @@ class CarTyreWrap extends CGFobject
 			this.scene.translate(0.42 + 0.15 + 0.125+0.07+0.04 + 0.015 + 0.01,0.2,0);
 			this.p15.display();
 		this.scene.popMatrix();
-		
+
 		this.scene.pushMatrix();
 			this.scene.translate(0.42 + 0.15 + 0.125+0.07+0.04 + 0.015 + 0.005-0.005 ,0.1,0);
 			this.p16.display();

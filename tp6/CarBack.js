@@ -25,7 +25,7 @@ class CarBack extends CGFobject
 									0,0.5,0,
 									0,0.5,8,this.N);
 
-		//parte de cima 
+		//parte de cima
 		this.p4 = new MyTrap(scene,0,0,8,
 									6.5,0,0,
 									6.5,0,8,this.N);
@@ -42,13 +42,11 @@ class CarBack extends CGFobject
 
 	display()
 	{
-		// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-
 		this.scene.pushMatrix();
 			this.scene.translate(-3,5,-3);
 			this.p1.display();
 		this.scene.popMatrix();
-		
+
 		this.scene.pushMatrix();
 			this.scene.translate(-3,4,-4);
 			this.p2.display();

@@ -11,29 +11,29 @@ class CarSideLeft extends CGFobject
 		super(scene);
 
 		this.N = 5;
-		
+
 		this.part1 = new MyTrap(scene,
 									  0,3,-1,
 									  7,-1,0,
 									  7,2,-1,this.N);
 
 
-		this.part2 = new MyTrap(scene, 
+		this.part2 = new MyTrap(scene,
 										0,1,1,
 										7,-1,0,
 										7,0.5,1,this.N);
 
-		this.part3 = new MyTrap(scene, 
+		this.part3 = new MyTrap(scene,
 										0,1,1,
 										3,-1,-1,
 										3,0,0,this.N);
 
-		this.part4 = new MyTrap(scene, 
+		this.part4 = new MyTrap(scene,
 										0,4,0,
 										3,0,0,
 										3,3,-1,this.N);
 
-		this.part11 = new MyTrap(scene, 
+		this.part11 = new MyTrap(scene,
 										0.3,1,0,
 										7.3,0,0,
 										7.3,0,0,this.N);
@@ -74,12 +74,12 @@ class CarSideLeft extends CGFobject
 										0.5,-0.2,-0.165,
 										0.5,0.75,0,this.N);
 
-		this.window1 = new MyTrap(scene, 
+		this.window1 = new MyTrap(scene,
 										0,1.75,1,
 										7,-0.5,0,
 										5,1.75,1,this.N);
 
-		this.window2 = new MyTrap(scene, 
+		this.window2 = new MyTrap(scene,
 											0,0.95,0.165,
 											2.5,-0.8,-1+0.165,
 											2.75,0.95,0.165,this.N);
@@ -93,37 +93,13 @@ class CarSideLeft extends CGFobject
 
 		this.mirrorCap = new MyHalfSphere(scene,20,20,0,1,0,1);
 
-		this.mirror = new MyCircle(scene,20);				
+		this.mirror = new MyCircle(scene,20);
 
-											
+
 	};
 
 	display()
 	{
-		//PRINT IN BLACK START =============================
-		this.scene.blackMat.apply();
-
-			this.scene.pushMatrix();
-				this.scene.translate(0,4,0);
-				this.window1.display();
-			this.scene.popMatrix();
-
-			this.scene.pushMatrix();
-				this.scene.translate(-2.5,5-0.2,1-0.165);
-				this.window2.display();
-			this.scene.popMatrix();
-
-			this.scene.pushMatrix();
-				this.scene.translate(5.6,3,-1);
-				this.scene.rotate(-Math.PI/2,0,1,0);
-				this.scene.scale(1,1,1);
-				this.mirror.display();
-			this.scene.popMatrix();
-
-		// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-		this.scene.materialDefault.apply();
-		// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-		//PRINT IN BLACK END ===============================
 
 		this.scene.pushMatrix();
 
@@ -134,7 +110,7 @@ class CarSideLeft extends CGFobject
 			this.mirrorCap.display();
 		this.scene.popMatrix();
 
-		
+
 		this.scene.pushMatrix();
 			this.scene.translate(6,3,9);
 			this.scene.scale(0.5,0.5,1);
@@ -145,7 +121,7 @@ class CarSideLeft extends CGFobject
 			this.scene.translate(0,-1,-0.75);
 			this.airVent.display();
 		this.scene.popMatrix();
-		
+
 		this.scene.pushMatrix();
 			this.part1.display();
 		this.scene.popMatrix();
@@ -159,7 +135,7 @@ class CarSideLeft extends CGFobject
 			this.scene.translate(-3,4,0);
 			this.part3.display();
 		this.scene.popMatrix();
-	
+
 		this.scene.pushMatrix();
 			this.scene.translate(-3,0,0);
 			this.part4.display();
@@ -205,7 +181,24 @@ class CarSideLeft extends CGFobject
 			this.part19.display();
 		this.scene.popMatrix();
 
-		
+		this.scene.blackMat.apply();
+
+			this.scene.pushMatrix();
+				this.scene.translate(0,4,0);
+				this.window1.display();
+			this.scene.popMatrix();
+
+			this.scene.pushMatrix();
+				this.scene.translate(-2.5,5-0.2,1-0.165);
+				this.window2.display();
+			this.scene.popMatrix();
+
+			this.scene.pushMatrix();
+				this.scene.translate(5.6,3,-1);
+				this.scene.rotate(-Math.PI/2,0,1,0);
+				this.scene.scale(1,1,1);
+				this.mirror.display();
+			this.scene.popMatrix();
 	};
 
 };

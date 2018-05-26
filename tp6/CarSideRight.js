@@ -11,7 +11,7 @@ class CarSideRight extends CGFobject
 		super(scene);
 
 		this.N = 5;
-		
+
 		this.part1 = new MyTrap(scene,7,-1,0,
 									  0,3,1,
 									  7,2,1,this.N);
@@ -78,38 +78,12 @@ class CarSideRight extends CGFobject
 
 		this.mirror = new MyCircle(scene,20);
 
-		
-																					
+
+
 	};
 
 	display()
 	{
-
-		//PRINT IN BLACK START =============================
-		this.scene.blackMat.apply();
-
-			this.scene.pushMatrix();
-				this.scene.translate(0,4,0);
-				this.window1.display();
-			this.scene.popMatrix();
-
-			this.scene.pushMatrix();
-				this.scene.translate(-2.5,5-0.2,-1+0.165);
-				this.window2.display();
-			this.scene.popMatrix();
-
-			this.scene.pushMatrix();
-				this.scene.translate(5.6,3,1);
-				this.scene.rotate(-Math.PI/2,0,1,0);
-				this.scene.scale(1,1,1);
-				this.mirror.display();
-			this.scene.popMatrix();
-			
-		// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-		this.scene.materialDefault.apply();
-		// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-		//PRINT IN BLACK END ===============================
-
 		this.scene.pushMatrix();
 
 			this.scene.translate(1.5,3,-4);
@@ -119,18 +93,18 @@ class CarSideRight extends CGFobject
 			this.mirrorCap.display();
 		this.scene.popMatrix();
 
-		
+
 		this.scene.pushMatrix();
 			this.scene.translate(6,3,10);
 			this.scene.scale(0.5,0.5,1);
 			this.mirrorArm.display();
 		this.scene.popMatrix();
-		
+
 		this.scene.pushMatrix();
 			this.scene.translate(0,-1,0.75);
 			this.airVent.display();
 		this.scene.popMatrix();
-		
+
 		this.scene.pushMatrix();
 			this.part1.display();
 		this.scene.popMatrix();
@@ -144,7 +118,7 @@ class CarSideRight extends CGFobject
 			this.scene.translate(-3,4,0);
 			this.part3.display();
 		this.scene.popMatrix();
-	
+
 		this.scene.pushMatrix();
 			this.scene.translate(-3,0,0);
 			this.part4.display();
@@ -194,6 +168,27 @@ class CarSideRight extends CGFobject
 			this.scene.translate(-3,5,-1);
 			this.part19.display();
 		this.scene.popMatrix();
+
+		//PRINT IN BLACK START =============================
+		this.scene.blackMat.apply();
+
+			this.scene.pushMatrix();
+				this.scene.translate(0,4,0);
+				this.window1.display();
+			this.scene.popMatrix();
+
+			this.scene.pushMatrix();
+				this.scene.translate(-2.5,5-0.2,-1+0.165);
+				this.window2.display();
+			this.scene.popMatrix();
+
+			this.scene.pushMatrix();
+				this.scene.translate(5.6,3,1);
+				this.scene.rotate(-Math.PI/2,0,1,0);
+				this.scene.scale(1,1,1);
+				this.mirror.display();
+			this.scene.popMatrix();
+
 	};
 
 };

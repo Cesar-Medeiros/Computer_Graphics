@@ -194,20 +194,17 @@ class MyVehicle extends CGFobject
 
 	display()
 		{
+			this.scene.pushMatrix();
 
-
-
-
-				this.scene.pushMatrix();
-
-				this.scene.translate(this.position[0], this.position[1], this.position[2]);
-				this.scene.rotate(this.vehicleAngle, 0, 1 ,0);
+			this.scene.translate(this.position[0], this.position[1], this.position[2]);
+			this.scene.rotate(this.vehicleAngle, 0, 1 ,0);
 
 			this.scene.pushMatrix();
-				this.scene.translate(LENGHT/2+0.1,0.025,0);
-				this.carChassis.display();
+			this.scene.translate(0.1,0.025,0);
+			this.carChassis.display();
 			this.scene.popMatrix();
 
+			this.scene.translate(-LENGHT/2,0.025,0);
 
 
 				//Back Right
@@ -252,6 +249,8 @@ class MyVehicle extends CGFobject
 	      this.scene.popMatrix();
 
 				this.scene.popMatrix();
+
+				this.scene.materialDefault.apply();
 		};
 
 	isPositionValid(positionTemp){

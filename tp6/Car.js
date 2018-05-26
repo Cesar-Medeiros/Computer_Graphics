@@ -23,20 +23,20 @@ class Car extends CGFobject
 
 		this.headLight = new MyQuad(scene,1/10,9/10,1/3,2/3);
 		this.flight = new CGFappearance(this.scene);
-    	this.flight.setAmbient(0.2,0.2,0.2,1);
-    	this.flight.setDiffuse(0.9,0.9,0.9,1);
-    	this.flight.setSpecular(0.1,0.1,0.1,1);
+    	this.flight.setAmbient(0.5, 0.5, 0.5, 1);
+    	this.flight.setDiffuse(1.0, 1.0, 1.0, 1);
+    	this.flight.setSpecular(0.1, 0.1, 0.1, 1);
     	this.flight.setShininess(1);
     	this.flight.loadTexture("resources/images/flight.png");
 
     	this.plateObj = new MyQuad(scene,0,1,0,1);
-		this.plateText = new CGFappearance(this.scene);
-    	this.plateText.setAmbient(0.2,0.2,0.2,1);
-    	this.plateText.setDiffuse(0.9,0.9,0.9,1);
-    	this.plateText.setSpecular(0.1,0.1,0.1,1);
+			this.plateText = new CGFappearance(this.scene);
+			this.plateText.setAmbient(0.5, 0.5, 0.5, 1);
+			this.plateText.setDiffuse(1.0, 1.0, 1.0, 1);
+			this.plateText.setSpecular(0.1, 0.1, 0.1, 1);
     	this.plateText.setShininess(1);
     	this.plateText.loadTexture("resources/images/plate.png");
-	
+
 	};
 
 	display()
@@ -44,8 +44,6 @@ class Car extends CGFobject
 		var WIDTH = 2.5;
 		var LENGTH = 5;
 		var HIGHT = 1.2;
-
-
 
 
 		//to make the car fit in
@@ -59,9 +57,6 @@ class Car extends CGFobject
 			this.scene.rotate(Math.PI/2,0,1,0);
 			this.scene.scale(1.5,1,0);
 			this.plateObj.display();
-			// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-			this.scene.color_yellow.apply();
-			// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
@@ -70,9 +65,6 @@ class Car extends CGFobject
 			this.scene.rotate(-Math.PI/2,0,1,0);
 			this.scene.scale(1.5,1,0);
 			this.plateObj.display();
-			// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-			this.scene.color_yellow.apply();
-			// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
 		this.scene.popMatrix();
 
 
@@ -82,9 +74,6 @@ class Car extends CGFobject
 			this.scene.rotate(Math.PI/2,0,1,0);
 			this.scene.scale(2,1,0);
 			this.headLight.display();
-			// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-			this.scene.color_yellow.apply();
-			// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
@@ -94,28 +83,30 @@ class Car extends CGFobject
 			this.scene.rotate(Math.PI/2,0,1,0);
 			this.scene.scale(2,1,0);
 			this.headLight.display();
-			// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
-			this.scene.color_yellow.apply();
-			// ======================== | CHANGE TEXTURE FROM INTERFACE | ======================
 		this.scene.popMatrix();
 
-		
+
 		this.scene.pushMatrix();
 			this.carFloor.display();
 		this.scene.popMatrix();
-		
+
+
+
 		this.scene.pushMatrix();
+			this.scene.vehicleAppearance.apply();
 			this.scene.translate(0,0,-4);
 			this.carSideLeft.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
+			this.scene.vehicleAppearance.apply();
 			this.scene.translate(0,0,4);
 			this.carSideRight.display();
 		this.scene.popMatrix();
 
 		//front right
 		this.scene.pushMatrix();
+			this.scene.vehicleAppearance.apply();
 			this.scene.translate(8,-1,4);
 			this.scene.scale(4.5,4.5,1);
 			this.carTyreWrap.display();
@@ -144,7 +135,6 @@ class Car extends CGFobject
 			this.carTyreWrap.display();
 		this.scene.popMatrix();
 
-	
 
 		this.scene.pushMatrix();
 			this.scene.translate(-3,6.5,3);
@@ -159,6 +149,6 @@ class Car extends CGFobject
 			this.carFront.display();
 		this.scene.popMatrix();
 
-		
+
 	};
 };
