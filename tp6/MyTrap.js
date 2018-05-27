@@ -30,9 +30,6 @@ class MyTrap extends CGFobject {
     ;
     initBuffers() {
         this.preProcessValues();
-
-        //console.log(this.incLeftVec.y);
-
         this.fillVerticesAndNormals();
         this.fillIndexes();
 
@@ -51,10 +48,6 @@ class MyTrap extends CGFobject {
                 z: this.incLeftVec.z * vertLayer
             }
 
-            //console.log("Start point");
-            //console.log(this.startPoint.x);
-            //console.log(this.startPoint.y);
-            //console.log(this.startPoint.z);
 
             this.endPoint = {
                 x: this.x1 + this.incRightVec.x * vertLayer,
@@ -62,16 +55,15 @@ class MyTrap extends CGFobject {
                 z: this.z1 + this.incRightVec.z * vertLayer
             }
 
-            //console.log("End point");
-            //console.log(this.endPoint.x);
-            //console.log(this.endPoint.y);
-            //console.log(this.endPoint.z);
 
             this.incBaseVec = {
                 x: (this.endPoint.x - this.startPoint.x) / this.n,
                 y: (this.endPoint.y - this.startPoint.y) / this.n,
                 z: (this.endPoint.z - this.startPoint.z) / this.n
             }
+
+           
+
 
             //preencher os valores
             for (var i = 0; i < this.n + 1; i++) {
@@ -116,21 +108,12 @@ class MyTrap extends CGFobject {
             z: this.z1 / this.vecLengthBase
         }
 
-        /*
-		console.log(this.incBase.x);
-		this.incBase.x = this.x1/this.vecLengthBase;
-		console.log(this.incBase.x);
-		*/
-
         this.incLeftVec = {
             x: this.x3 / this.n,
             y: this.y3 / this.n,
             z: this.z3 / this.n,
             length: (this.vecLengthLeft / this.n)
         }
-
-        //console.log("e disto");
-        //console.log(this.incLeftVec.y);
 
         this.incRightVec = {
             x: vecXRight / this.n,
@@ -144,29 +127,10 @@ class MyTrap extends CGFobject {
             y: this.incBase.z * this.incLeftVec.x - this.incBase.x * this.incLeftVec.z,
             z: this.incBase.x * this.incLeftVec.y - this.incBase.y * this.incLeftVec.x
         }
-        //console.log(this.incLeftVec.y);
-
     }
 
     distanceBetween(x1, y1, z1, x2, y2, z2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) + Math.pow(z2 - z1, 2));
     }
-
-    distanceBetweenTwoLines(x1, y1, z1, x2, y2, z2) {
-        //note that 0,0,0 is apart of the line shared with P1 and parallele to line in P2
-        var denom = Math.pow(this.distanceBetween(x1, y1, z1, 0, 0, 0), 2);
-        var num = x1 * x2 + y1 * y2 + z1 * z2;
-        var frac = num / denom;
-        var newX = x1 * frac;
-        var newY = y1 * frac;
-        var newZ = z1 * frac;
-
-        var finalX = x2 - newX;
-        var finalY = y2 - newY;
-        var finalZ = z2 - newZ;
-
-        return this.distanceBetween(finalX, finalY, finalZ, 0, 0, 0);
-    }
-
 }
 ;

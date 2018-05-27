@@ -9,48 +9,36 @@ class MyHalfSphere extends CGFobject
         this.slices = 20;
         this.stacks = 20;
 
-        this.minS = minS || 0.0;
-        this.minT = minT || 0.0;
-        this.maxS = maxS || 1.0;
-        this.maxT = maxT || 1.0;
+        this.vertices = [];
+        this.normals = [];
+        this.indices = [];
+        this.texCoords = [];
 
         this.initBuffers();
     }
 
     initBuffers()
     {
-
-        this.vertices = [];
-        this.normals = [];
-        this.indices = [];
-        this.texCoords = [];
-
         var stepS = (this.maxS-this.minS)/this.slices;
         var stepT = (this.maxT-this.minT)/this.slices;
 
-        //texture coordinates
         var texS = 0;
         var texIncS = 1/this.slices;
         var texIncT = 1/this.stacks;
         var prevTexT = 0;
         var nextTexT = 0;
 
-
-        //alpha in degrees
         var alpha = 360/this.slices;
 
-        //convert to radian
         alpha = (alpha * Math.PI)/180;
 
-        //radius of both surfaces
         var radiusTop = 1;
-        var radiusBottom = 1;
+        var botRad = 1;
 
-        //height of each stack
         var stackHeight = 1/this.stacks;
 
-        var sumalpha = 0;
-        var heightSum = 0;
+        var sumAlpha = 0;
+        var sumHeight = 0;
 
         for (var j = 0; j < this.stacks; j++) {
 
@@ -58,44 +46,34 @@ class MyHalfSphere extends CGFobject
 
             for (var i = j*this.slices*4; i < (j+1)*this.slices*4; i += 4) {
 
-                //calculating the radius of the top
                 radiusTop = Math.sqrt(1-(((j+1)*stackHeight)*((j+1)*stackHeight)));
 
-                //vertice 1 da face 0
-                this.vertices.push(radiusBottom*Math.cos(sumalpha),radiusBottom*Math.sin(sumalpha), heightSum);
-                this.normals.push(radiusBottom*Math.cos(sumalpha), radiusBottom*Math.sin(sumalpha), 0);
+                this.vertices.push(botRad*Math.cos(sumAlpha),botRad*Math.sin(sumAlpha), sumHeight);
+                this.normals.push(botRad*Math.cos(sumAlpha), botRad*Math.sin(sumAlpha), 0);
                 this.texCoords.push(texS, prevTexT);
 
-                //vertice 1 da face 1
-                this.vertices.push(radiusTop*Math.cos(sumalpha), radiusTop*Math.sin(sumalpha), heightSum+stackHeight);
-                this.normals.push(radiusTop*Math.cos(sumalpha), radiusTop*Math.sin(sumalpha), 0);
+                this.vertices.push(radiusTop*Math.cos(sumAlpha), radiusTop*Math.sin(sumAlpha), sumHeight+stackHeight);
+                this.normals.push(radiusTop*Math.cos(sumAlpha), radiusTop*Math.sin(sumAlpha), 0);
                 this.texCoords.push(texS, nextTexT);
 
-                sumalpha += alpha;
+                sumAlpha += alpha;
                 texS += texIncS;
 
-                //vertice 2 da face 0
-                this.vertices.push(radiusBottom*Math.cos(sumalpha), radiusBottom*Math.sin(sumalpha), heightSum);
-                this.normals.push(radiusBottom*Math.cos(sumalpha),radiusBottom*Math.sin(sumalpha), 0);
+                this.vertices.push(botRad*Math.cos(sumAlpha), botRad*Math.sin(sumAlpha), sumHeight);
+                this.normals.push(botRad*Math.cos(sumAlpha),botRad*Math.sin(sumAlpha), 0);
                 this.texCoords.push(texS, prevTexT);
 
-                //vertice 2 da face 1
-                this.vertices.push(radiusTop*Math.cos(sumalpha), radiusTop*Math.sin(sumalpha), heightSum+stackHeight);
-                this.normals.push(radiusTop*Math.cos(sumalpha), radiusTop*Math.sin(sumalpha), 0);
+                this.vertices.push(radiusTop*Math.cos(sumAlpha), radiusTop*Math.sin(sumAlpha), sumHeight+stackHeight);
+                this.normals.push(radiusTop*Math.cos(sumAlpha), radiusTop*Math.sin(sumAlpha), 0);
                 this.texCoords.push(texS, nextTexT);
 
-                this.indices.push(i + 2);
-                this.indices.push(i + 1);
-                this.indices.push(i);
-                this.indices.push(i + 1);
-                this.indices.push(i + 2);
-                this.indices.push(i + 3);
+                this.indices.push(i + 2,i + 1,i,i + 1,i + 2,i + 3);
 
             }
             
-            sumalpha = 0;
-            radiusBottom = radiusTop;
-            heightSum += stackHeight;
+            sumAlpha = 0;
+            botRad = radiusTop;
+            sumHeight += stackHeight;
             texS = 0;
             prevTexT = nextTexT;
 

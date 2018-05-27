@@ -68,7 +68,7 @@ class LightingScene extends CGFscene
 
 	drawObjs()
 	{
-
+		//in case of the car not beeing on the Crane
 		if(!this.vehicle.onCrane){
 			this.pushMatrix();
 			this.translate(0,0.5,0);
@@ -89,6 +89,7 @@ class LightingScene extends CGFscene
 		this.terrain.display();
 
 		this.crane.display();
+		
 	};
 
 
@@ -220,8 +221,6 @@ class LightingScene extends CGFscene
 		}
 
 		// ---- END Background, camera and axis setup
-
-
 
 		//drawing section
 		this.drawObjs();

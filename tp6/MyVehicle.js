@@ -17,7 +17,7 @@ const WEIGHT = 10.0;
 
 const R_AIR = 4.4257;
 const R_R = 12.8;
-const R_WHEEL = 0.85;
+const R_WHEEL = 0.75;
 
 const TURN = 0.1;
 const ACELERATE_FRONT = 10;
@@ -36,7 +36,7 @@ class MyVehicle extends CGFobject
 
 		this.engineForce = 0;
 
-		this.position = [0, 0, 0];
+		this.position = [0, 0,-12];
 		this.velocity = [0, 0, 0];
 		this.direction = [0, 0, 0];
 		this.angle = 0;
@@ -47,14 +47,7 @@ class MyVehicle extends CGFobject
 		this.distance = 0;
 
 		this.onCrane = false;
-
-		//============================================== ZONA PARA TESTES ===============================================
-
 		this.wheelRotationRadius = 0;
-
-
-		//===============================================================================================================
-
 	};
 
 	update(currTime){
@@ -193,18 +186,18 @@ class MyVehicle extends CGFobject
 	}
 
 	display()
-		{
+	{
 			this.scene.pushMatrix();
 
 			this.scene.translate(this.position[0], this.position[1], this.position[2]);
 			this.scene.rotate(this.vehicleAngle, 0, 1 ,0);
 
-			this.scene.pushMatrix();
-			this.scene.translate(0.1,0.025,0);
+		this.scene.pushMatrix();
+			this.scene.translate(0.1,0.05,0);
 			this.carChassis.display();
-			this.scene.popMatrix();
+		this.scene.popMatrix();
 
-			this.scene.translate(-LENGHT/2,0.025,0);
+		this.scene.translate(-LENGHT/2,0.025,0);
 
 
 				//Back Right
